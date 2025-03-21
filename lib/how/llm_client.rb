@@ -25,8 +25,10 @@ module How
         raise "No LLM API token configured. Please set up an API token in ~/.how/config.yml or environment variables."
       end
       
-      # Start a chat with the default model (usually GPT-4o-mini)
-      chat = RubyLLM.chat
+      # Start a chat with the specified model
+      selected_model = How::Config.model
+      
+      chat = RubyLLM.chat(model: selected_model)
       
       # Structure the prompt to get command and explanation
       formatted_prompt = <<~PROMPT
@@ -46,12 +48,17 @@ module How
       PROMPT
       
       # Get a response from the LLM
-      response = chat.ask(formatted_prompt)
+      begin
+        response = chat.ask(formatted_prompt)
+      rescue => e
+        raise "LLM request failed: #{e.message}"
+      end
       
       # Try to parse the JSON response
       begin
         # The response might be in a code block, so extract it if necessary
-        json_text = response.to_s
+        json_text = response.content
+        
         if json_text =~ /```(?:json)?\s*(\{.*?\})\s*```/m
           json_text = $1
         end
@@ -65,13 +72,15 @@ module How
         }
       rescue => e
         # If parsing fails, try to extract command and explanation more manually
-        command_match = response.to_s.match(/command"?\s*:?\s*"?([^"\n]+)"?/i)
-        explanation_match = response.to_s.match(/explanation"?\s*:?\s*"?([^"]+)"?/i)
+        command_match = response.content.match(/command"?\s*:?\s*"?([^"\n]+)"?/i)
+        explanation_match = response.content.match(/explanation"?\s*:?\s*"?([^"]+)"?/i)
         
-        {
+        result = {
           command: command_match ? command_match[1].strip : "Failed to parse command",
           explanation: explanation_match ? explanation_match[1].strip : "Failed to parse explanation"
         }
+        
+        result
       end
     rescue => e
       raise "LLM request failed: #{e.message}"
