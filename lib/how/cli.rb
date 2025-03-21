@@ -1,8 +1,18 @@
 module How
   class CLI < Thor
-    desc "explain TOOL TASK_DESCRIPTION", "Explain how to use TOOL to accomplish TASK_DESCRIPTION"
-    def explain(tool, *task_description)
-      task = task_description.join(" ")
+    no_commands do
+      def self.exit_on_failure?
+        true
+      end
+    end
+
+    desc "[TOOL] [TASK_DESCRIPTION]", "Explain how to use TOOL to accomplish TASK_DESCRIPTION"
+    def method_missing(method_name, *args)
+      tool = method_name.to_s
+      task = args.join(" ")
+      
+      # If task starts with "how", remove it
+      task = task.sub(/^how\s+/, '') if task.start_with?("how ")
       
       # 1. Gather context from the tool using various help commands.
       context = How::ContextGatherer.get_info(tool)
