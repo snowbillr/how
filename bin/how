@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative "../lib/how"
+
+How::CLI.start(ARGV)
