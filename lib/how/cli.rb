@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'rainbow'
 
 module How
   class CLI < Thor
@@ -15,7 +16,7 @@ module How
 
       valid_options = %w[model openai_api_key anthropic_api_key gemini_api_key deepseek_api_key]
       if !valid_options.include?(option)
-        puts "Invalid option. Valid options are: #{valid_options.join(', ')}"
+        puts Rainbow("Invalid option. Valid options are: #{valid_options.join(', ')}").red
         return
       end
 
@@ -23,7 +24,7 @@ module How
 
       FileUtils.mkdir_p(File.dirname(config_path))
       File.write(config_path, config.to_yaml)
-      puts "Configuration updated: #{option}=#{value}"
+      puts Rainbow("Configuration updated: #{option}=#{value}").green
     end
 
     desc "[TOOL] [TASK_DESCRIPTION]", "Explain how to use TOOL to accomplish TASK_DESCRIPTION"
@@ -44,18 +45,22 @@ module How
       response = How::LLMClient.get_response(prompt)
       
       # 4. Display response and ask for confirmation.
-      puts "Proposed Operation:\n#{response[:command]}"
-      puts "Explanation:\n#{response[:explanation]}"
-      print "Execute this command? (y/n): "
+      puts Rainbow("Proposed Operation:").white.bright
+      puts Rainbow(response[:command]).yellow
+      puts "\n"
+      puts Rainbow("Explanation:").white.bright
+      puts Rainbow(response[:explanation]).white
+
+      print Rainbow("Execute this command? (y/n): ").yellow
       answer = $stdin.gets.chomp.downcase
       
       if answer == 'y'
         How::Executor.execute(response[:command])
       else
-        puts "Aborted."
+        puts Rainbow("Aborted.").red
       end
     rescue => e
-      puts "Error: #{e.message}"
+      puts Rainbow("Error: #{e.message}").red
     end
   end
 end

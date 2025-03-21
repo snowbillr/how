@@ -1,10 +1,15 @@
+require 'rainbow'
+
 module How
   module Executor
     def self.execute(command)
-      puts "Executing: #{command}"
-      system(command)
+      result = system(command)
+      
+      if !result
+        puts Rainbow("⚠️ Command may have encountered issues (exit code: #{$?.exitstatus})").yellow
+      end
     rescue => e
-      puts "Execution failed: #{e.message}"
+      puts Rainbow("❌ Execution failed: #{e.message}").red.bright
     end
   end
 end
