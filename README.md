@@ -28,12 +28,23 @@ bundle exec rspec
 
 ## Configuration
 
-For production use, you'll need to set up an API token for the LLM service:
+For production use, you'll need to set up API tokens for the LLM service:
 
 1. Create a `.how` directory in your home folder: `mkdir -p ~/.how`
-2. Create a `config.yml` file with your API token:
+2. Create a `config.yml` file with your API tokens:
+
 ```yaml
-llm_api_token: your_api_token_here
+openai_api_key: your_openai_api_key_here
+anthropic_api_key: your_anthropic_api_key_here
+gemini_api_key: your_gemini_api_key_here
+deepseek_api_key: your_deepseek_api_key_here
 ```
 
-Alternatively, you can set the `LLM_API_TOKEN` environment variable.
+Alternatively, you can set the following environment variables:
+
+- `OPENAI_API_KEY`
+- `ANTHROPIC_API_KEY`
+- `GEMINI_API_KEY`
+- `DEEPSEEK_API_KEY`
+
+The tool will use these keys to interact with the respective LLM services.
