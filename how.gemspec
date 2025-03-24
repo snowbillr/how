@@ -1,8 +1,6 @@
-require_relative "lib/how"
-
 Gem::Specification.new do |spec|
   spec.name        = "how"
-  spec.version     = How::VERSION
+  spec.version     = "0.4.0"
   spec.authors     = ["Bill Reed"]
   spec.email       = ["snowbillr@gmail.com"]
   
@@ -13,12 +11,14 @@ Gem::Specification.new do |spec|
   
   spec.required_ruby_version = ">= 3.0.0"
   
-  spec.files = Dir["lib/**/*", "bin/*", "README.md", "LICENSE", "RUBY_LLM_INFO.md"]
+  spec.files = Dir["lib/**/*", "bin/*", "vendor/cache/*.gem", "README.md", "LICENSE", "RUBY_LLM_INFO.md"]
+  spec.require_paths = ["lib"]
+
   spec.bindir = "bin"
   spec.executables = ["how"]
   
   spec.add_dependency "thor", "~> 1.0"
-  spec.add_dependency "ruby_llm", "~> 0.1"
+  spec.add_dependency "ruby_llm", "~> 1.0"
   spec.add_dependency "base64", "~> 0.1"
   spec.add_dependency "rainbow", "~> 3.0"
   

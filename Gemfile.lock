@@ -1,3 +1,12 @@
+PATH
+  remote: .
+  specs:
+    how (0.4.0)
+      base64 (~> 0.1)
+      rainbow (~> 3.0)
+      ruby_llm (~> 1.0)
+      thor (~> 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -19,6 +28,7 @@ GEM
     multipart-post (2.4.1)
     net-http (0.6.0)
       uri
+    rainbow (3.1.1)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -47,10 +57,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  base64
+  how!
   rspec (~> 3.10)
-  ruby_llm
-  thor
 
 BUNDLED WITH
    2.6.5
