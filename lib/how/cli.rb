@@ -50,6 +50,7 @@ module How
       puts "\n"
       puts Rainbow("Explanation:").white.bright
       puts Rainbow(response[:explanation]).white
+      puts "\n"
 
       print Rainbow("Execute this command? (y/n): ").yellow
       answer = $stdin.gets.chomp.downcase
