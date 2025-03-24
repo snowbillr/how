@@ -9,7 +9,7 @@ module How
       end
     end
 
-    desc 'config [MODEL] [API_KEY]', 'Set the model and API key in the configuration file'
+    desc 'config [OPTION] [VALUE]', 'Set the model and API key in the configuration file. Valid options are `model`, `openai_api_key`, `anthropic_api_key`, `gemini_api_key`, and `deepseek_api_key`.'
     def config(option, value)
       config_path = File.join(Dir.home, '.how', 'config.yml')
       config = File.exist?(config_path) ? YAML.load_file(config_path) : {}
