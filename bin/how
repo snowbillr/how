@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
-require_relative "../lib/how"
+
+$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
+
+require "how"
 
 How::CLI.start(ARGV)
