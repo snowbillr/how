@@ -20,24 +20,7 @@ bin/how tar create a compressed archive of a directory
 ```
 
 ## Configuration
-For production use, you'll need to set up an API token for an LLM service. You can use the `how config` command to set any of the following values. *Only one provider/key combo is required.*
-
-```bash
-# Set the OpenAI API key
-bin/how config openai_api_key your_openai_api_key_here
-
-# Set the Anthropic API key
-bin/how config anthropic_api_key your_anthropic_api_key_here
-
-# Set the Gemini API key
-bin/how config gemini_api_key your_gemini_api_key_here
-
-# Set the DeepSeek API key
-bin/how config deepseek_api_key your_deepseek_api_key_here
-
-# Set the preferred model
-bin/how config model your_preferred_model_here
-```
+For production use, you'll need to set up an API token for an LLM service. You can use the `bin/how config` command to set up your LLM provider.
 
 Alternatively, you can set the following environment variables:
 - `HOW_OPENAI_API_KEY`
@@ -45,10 +28,6 @@ Alternatively, you can set the following environment variables:
 - `HOW_GEMINI_API_KEY`
 - `HOW_DEEPSEEK_API_KEY`
 - `HOW_MODEL`
-
-The tool will use these keys to interact with the respective LLM services and model configuration.
-
-To determine what models are available, run `RubyLLM.models.all` in a Ruby console.
 
 ## Development
 Run the tests:

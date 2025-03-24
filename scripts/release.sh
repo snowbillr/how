@@ -12,7 +12,7 @@ rm -f "${GEM_FILE}"
 
 echo "📦 Installing + Vendoring dependencies..."
 bundle install
-bundle package --all
+bundle package
 
 echo "💎 Building gem..."
 gem build "${GEM_NAME}.gemspec"
