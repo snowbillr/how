@@ -6,5 +6,5 @@ require_relative "how/executor"
 require_relative "how/config"
 
 module How
-  VERSION = "0.4.0"
+  VERSION = "0.5.0"
 end
